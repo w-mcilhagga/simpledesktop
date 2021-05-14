@@ -36,7 +36,7 @@ Then you can call the following (async) functions:
 * `mkdir(dirname)` makes a directory
 * `copy(source, dest)` copies a file.
 
-All these functions return a promise which resolves to an object. The properties of the object depends on the call. See docs/fs.md for details.
+All these functions return a promise which resolves to an object. The properties of the object depends on the call. See [docs/fs.md] for details.
 
 ## Any Drawbacks?
 
