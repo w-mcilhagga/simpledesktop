@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Editor</title>
+<script src='../scripts/fs.js'></script>
+<style>
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  box-model: 
+}
+button {
+	margin-right: 20px;
+}
+</style>
+</head>
+<body>
+<h2>Editor Demo</h2>
+<div style='margin-bottom:20px'>
+<button id=getfile>Open</button>
+<button id=putfile>Save</button>
+<button id=putfileas>Save As</button>
+</div>
+<div id=path style='height:30px;width:90%;background:lightgray;margin-bottom:5px;padding:4px;box-sizing:border-box'></div>
+<textarea id=editor style='width:90%;height:80%'>
+</textarea>
+</body>
+<script>
+let getid = id => document.getElementById(id)
+let response = {filename:''}
+
+async function open_file() {
+	response = await choosefile({})
+	if (response) {
+		getid('editor').value = response.contents
+		getid('path').innerHTML = response.filename
+	}
+}
+
+getid('getfile').onclick = ()=>open_file()
+
+async function putas() {
+	// split filename into name & initialdir
+	let initialdir, filename
+	if (response.filename) {
+		let path = response.filename.split('/')
+		filename = path.pop()
+		initialdir = path.join('/')
+	} else {
+		filename = ''
+		initialdir = '.'
+	}
+	let resp = await putfileas(filename, getid('editor').value, {initialdir})
+	response.filename = resp.filename
+	getid('path').innerHTML = response.filename
+}
+getid('putfileas').onclick = putas
+
+getid('putfile').onclick = ()=>{
+	putfile(response.filename, getid('editor').value)
+}
+</script>

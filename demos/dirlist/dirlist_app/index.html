@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>File List</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src='../scripts/fs.js'></script>
+<style>
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+
+#path {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  margin-left:10px;
+  background-color: #ddd;
+  display: inline-block;
+}
+
+i {
+	color: #4CAF50;
+}
+
+.folder {
+	cursor: pointer;
+}
+
+button {
+	position: relative;
+	height:100%
+  ppadding: 12px;
+}
+</style>
+</head>
+<body>
+<h2>Directory Listing Demo</h2>
+<p> Click on a folder line to enter that directory. Click the up arrow to go to the parent directory. Click the grey directory path to pop opne a "Select Folder" dialog.
+<div style='position:relative;display:grid;grid-auto-flow:column;grid-template-columns:60px auto;margin-bottom:10px'>
+<button id=up><i class="material-icons">arrow_upward</i></button>
+<div id=path></div>
+</div>
+<div id=list></div>
+</body>
+<script>
+
+let getid = id => document.getElementById(id)
+
+let response = {} // global
+
+// app functions
+
+async function getandlist(dirname) {
+	let r = await getdir(dirname)
+	if (r) listdir(r)
+}
+
+async function chooseandlist() {
+	let r = await choosedir({})
+	if (r) listdir(r)
+}
+
+function childdir(dirname, childname) {
+	// lists a child directory
+	getandlist(dirname+'/'+childname)
+}
+
+function parentdir(dirname) {
+	// lists the parent directory
+	dirname = dirname.split('/')
+	dirname.pop()
+	getandlist(dirname.join('/'))
+}
+
+function listdir(r) {
+	response = r
+	response.directory = response.directory.replaceAll('\\','/')
+	getid('path').innerHTML = response.directory
+	let table = '<table><tr><th>&nbsp;</th><th>File name</th><th>Time</th></tr>'
+	for (let f of response.listing) {
+		let icon = f.isfile?'':'folder'
+		table += `<tr class="${icon}"><td><i class="material-icons">${icon}</i></td><td>${f.name}</td><td>${f.time}</td></tr>`
+	}
+	table += '</table>'
+	getid('list').innerHTML = table
+	for (let tag of document.querySelectorAll('.folder')) {
+		let foldername = tag.childNodes[1].innerHTML
+		tag.onclick = ()=>childdir(response.directory, foldername)
+	}
+	getid('up').onclick = ()=>parentdir(response.directory)
+}
+
+getid('path').onclick = chooseandlist
+getandlist('.')
+
+</script>
