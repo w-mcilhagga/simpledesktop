@@ -1,12 +1,12 @@
 # A Simple Desktop App Framework.
 
-There are a few ways of writing desktop apps using HTML, CSS, and Javascript, for example [Electron](https://www.electronjs.org/) and [nwjs](https://nwjs.io/). However, these are quite complicated to set up, work with, and and distribute. They provide lots of services, but most of the time, we really only want access to the file system. 
+There are a few ways of writing desktop apps using HTML, CSS, and Javascript, for example [Electron](https://www.electronjs.org/) and [nwjs](https://nwjs.io/). But these are quite complicated to set up, work with, and and distribute. They provide lots of services, but most of the time, we really only want access to the file system. 
 
 File system access can be granted easy enough with a local server that runs cgi scripts. cgi also makes it easy to expand the capabilities of the local app beyond that if you need to. That's what this simple desktop app framework does.
 
 ## Installation.
 
-You'll need python 3+ installed. Most people already do.
+You'll need python 3+ installed to run the server. Most people already do.
 
 To make a desktop app:
 1. Download and save the framework folder from here.
