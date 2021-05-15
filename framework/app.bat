@@ -1,2 +1,2 @@
 start /B py -m http.server --bind localhost --cgi 8000
-"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" -app=http://localhost:8000/app/index.html
+py -m webbrowser http://localhost:8000/app/index.html

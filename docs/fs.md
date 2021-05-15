@@ -12,7 +12,7 @@ Read a named file from the local filesystem and return it. The filename is a str
 * `filename`: the name of the file
 * one of:
   - `contents` if the file is a text file, or
-  - `blob` if the file is a binary file
+  - `blob` if the file is a binary file (not actually implemented yet)
 
 If it fails, it resolves to `false`. 
 ### `choosefile(options)` 
