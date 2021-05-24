@@ -2,18 +2,16 @@
 
 There are a few ways of writing desktop apps using HTML, CSS, and Javascript, for example [Electron](https://www.electronjs.org/) and [nwjs](https://nwjs.io/). But these are quite complicated to set up, work with, and and distribute. They provide lots of services, but most of the time, we really only want access to the file system. 
 
-File system access can be granted easy enough with a local server that runs cgi scripts. cgi also makes it easy to expand the capabilities of the local app beyond that if you need to. That's what this simple desktop app framework does.
-
-A **lot** of the functionality in this framework is already provided (experimentally) by the [File System Access API](https://wicg.github.io/file-system-access/), but not all.
+File system access can be granted easy enough with a local server. That's what this simple desktop app framework does. A **lot** of the functionality in this framework is already provided (experimentally) by the [File System Access API](https://wicg.github.io/file-system-access/), but not all - in particular, access is granted to the entire file system without file-by-file permissions.
 
 ## Installation.
 
-You'll need python 3+ installed to run the server. Most people already do.
+You'll need python 3+ installed to run the server. Most people already do; if not, download and install it.
 
 To make a desktop app:
 1. Download and save the `framework` folder.
 2. Rename the framework folder to whatever app name you want.
-4. Put your HTML, Javascript, and CSS files in the `/app` folder
+4. Put your HTML, Javascript, and CSS files in the `/app` folder within the renamed `framework` folder.
 5. Run the app.bat file by e.g. double clicking it. The index.html page will pop up and you're ready to go.
 
 You can download any folder from the demos directory and run its app.bat file to see what can be done. Once you've built your app, distribution is as simple as copying the renamed `framework` folder.
