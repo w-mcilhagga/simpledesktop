@@ -7,8 +7,9 @@ To get access to the file system in your app, include the following line in your
 
 The following functions are then available to you:
 
-### `getfile(filename)` 
-Read a named file from the local filesystem and return it. The filename is a string giving the absolute or relative path to the file. `getfile` returns a promise which resolves to an object with two properties if it succeeds:
+### `getfile(filename, istext)` 
+Read a named file from the local filesystem and return it. The filename is a string giving the absolute or relative path to the file.
+The optional `istext` says the file is a text file, if it comes with a nonstandard extension (i.e. not `txt`, `text`, `html`, `js`, `py`, `csv`, `bat`, or none at all). `getfile` returns a promise which resolves to an object with two properties if it succeeds:
 * `filename`: the name of the file
 * one of:
   - `contents` if the file is a text file, or

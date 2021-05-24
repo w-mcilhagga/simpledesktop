@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>Test</title>
+<script src='server/fs.js'></script>
+</head>
+<body>
+<button id=1>Choose Directory</button>
+<button id=2>Open Directory '.'</button>
+<button id=3>Choose Text File</button>
+<button id=4>Get Text File</button>
+<button id=5>Choose Binary File</button>
+<button id=6>Get Binary File</button>
+<button id=7>Saveas Text File</button>
+<button id=8>Save Text File</button>
+<button id=9>Saveas Binary File</button>
+<button id=10>Save Binary File</button>
+
+</body>
+<script>
+let getid = id => document.getElementById(id)
+
+// test for getdir, choosedir
+
+async function testdir1() {
+	let resp
+	resp = await choosedir()
+	console.log(resp)
+}
+
+async function testdir2() {
+	resp = await getdir('.')
+	console.log(resp)
+}
+getid(1).onclick = testdir1
+getid(2).onclick = testdir2
+
+// choose text files
+
+async function testtextfiles1() {
+	let resp
+	// choose a text file
+	resp = await choosefile({title:'Choose a text file'})
+	console.log(resp)
+}
+async function testtextfiles2() {
+	// read the file from the name
+	resp = await getfile('app.bat')
+	console.log(resp)
+}
+getid(3).onclick = testtextfiles1
+getid(4).onclick = testtextfiles2
+
+// choose bin files
+
+async function testbinfiles1() {
+	// choose a binary file
+	resp = await choosefile({title:'Choose a binary file'})
+	console.log(resp)
+}
+async function testbinfiles2() {
+	resp = await getfile('app/favicon.ico')
+	console.log(resp)	
+}
+getid(5).onclick = testbinfiles1
+getid(6).onclick = testbinfiles2
+
+
+async function testputtext1() {
+	let resp 
+	resp = await putfileas('abc', {title:'Save text file', initialfile:'abc.txt'})
+	console.log(resp)
+}
+async function testputtext2() {
+	let resp 
+	resp = await putfile('abc2.txt', 'abc')
+	console.log(resp)
+}
+getid(7).onclick=testputtext1
+getid(8).onclick=testputtext2
+
+async function testputbin1() {
+	// binary put
+	let a = new Uint8Array([1, 2, 3, 4])
+	let b = new Blob([a])
+	resp = await putfileas(b, {initialfile:'trash.jpg'})
+	console.log(resp)
+}
+async function testputbin2() {
+	// binary put
+	let a = new Uint8Array([5, 6, 7, 8])
+	let b = new Blob([a])
+	resp = await putfile('trash2.jpg', b)
+	console.log(resp)
+}
+
+getid(9).onclick = testputbin1
+getid(10).onclick = testputbin2
+
+//testputfiles()
+
+
+</script>
